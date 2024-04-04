@@ -12,6 +12,14 @@ class CommentUseCaseImpl implements CommentUseCase {
     return await _repository.addComment(createComment);
   }
   @override
+  Future<void> editComment(int id,String token, String newComment) async {
+    return await _repository.editComment(id, token, newComment);
+  }
+  @override
+  Future<void> deleteComment(int id,String token) async {
+    return await _repository.deleteComment(id, token);
+  }
+  @override
   Future<void> like(int commentId,int userId, int postId, String token) async {
     return await _repository.like(commentId,userId, postId, token);
   }

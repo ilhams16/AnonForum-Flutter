@@ -3,13 +3,13 @@ import 'package:anonforum/Domain/UseCase/user_use_case.dart';
 import 'package:anonforum/Domain/UseCase/user_use_case_impl.dart';
 import 'package:flutter/material.dart';
 
-class AccountPage extends StatelessWidget {
+class AccountScreen extends StatelessWidget {
   late int userId = 0;
   static const String userImageUrl =
       'https://app.actualsolusi.com/bsi/anonforum/api/UserAuth/image/';
   final UserUseCase _userUseCase = UserUseCaseImpl(UserRepositoryImpl());
 
-  AccountPage({super.key, required this.userId});
+  AccountScreen({super.key, required this.userId});
 
   @override
   Widget build(BuildContext context) {

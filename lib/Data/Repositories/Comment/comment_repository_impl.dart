@@ -1,6 +1,6 @@
 import 'package:anonforum/Data/DataSources/comment_data_source.dart';
 import 'package:anonforum/Data/Repositories/comment_repository.dart';
-import 'package:anonforum/Domain/Entities/create_comment.dart';
+import 'package:anonforum/Domain/Entities/Comment/create_comment.dart';
 import 'package:logger/logger.dart';
 
 class CommentRepositoryImpl implements CommentRepository {
@@ -12,6 +12,24 @@ class CommentRepositoryImpl implements CommentRepository {
     logger.d(createComment);
     try {
       await _dataSource.addComment(createComment);
+    } catch (e) {
+      logger.d("Error Repository: $e");
+      throw Exception(e);
+    }
+  }
+  @override
+  Future<void> editComment(int id, String token, String newComment) async {
+    try{
+      await _dataSource.editComment(id, token, newComment);
+    } catch (e) {
+      logger.d("Error Repository: $e");
+      throw Exception(e);
+    }
+  }
+  @override
+  Future<void> deleteComment(int id, String token) async {
+    try{
+      await _dataSource.deleteComment(id, token);
     } catch (e) {
       logger.d("Error Repository: $e");
       throw Exception(e);

@@ -1,5 +1,6 @@
 import 'package:anonforum/Data/Repositories/post_repository.dart';
 import 'package:anonforum/Domain/Entities/create_post.dart';
+import 'package:anonforum/Domain/Entities/edit_post.dart';
 import 'package:anonforum/Domain/Entities/post.dart';
 import 'package:anonforum/Domain/Entities/post_category.dart';
 import 'package:anonforum/Domain/UseCase/post_use_case.dart';
@@ -16,12 +17,24 @@ class PostUseCaseImpl implements PostUseCase {
         : await _repository.fetchPostsAndComments(search: search);
   }
   @override
+  Future<Post> getPostById(int id) async {
+    return _repository.getPostById(id);
+  }
+  @override
   Future<List<PostCategory>?> fetchCategory() async {
     return await _repository.fetchPostCategory();
   }
   @override
   Future<void> addPost(CreatePost createPost) async {
     return await _repository.addPost(createPost);
+  }
+  @override
+  Future<void> editPost(int postId,EditPost editPost) async {
+    return await _repository.editPost(postId, editPost);
+  }
+  @override
+  Future<void> deletePost(int id,String token) async {
+    return await _repository.deletePost(id, token);
   }
   @override
   Future<void> like(int userId, int postId, String token) async {

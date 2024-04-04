@@ -1,8 +1,8 @@
 import 'package:anonforum/Data/DataSources/user_data_source.dart';
 import 'package:anonforum/Data/Repositories/user_repository.dart';
-import 'package:anonforum/Domain/Entities/create_user.dart';
-import 'package:anonforum/Domain/Entities/user_auth.dart';
-import 'package:anonforum/Domain/Entities/user_login.dart';
+import 'package:anonforum/Domain/Entities/UserAuth/create_user.dart';
+import 'package:anonforum/Domain/Entities/UserAuth/user_auth.dart';
+import 'package:anonforum/Domain/Entities/UserAuth/user_login.dart';
 import 'package:logger/logger.dart';
 
 class UserRepositoryImpl implements UserRepository{

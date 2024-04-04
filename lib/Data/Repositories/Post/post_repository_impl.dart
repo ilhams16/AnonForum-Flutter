@@ -1,11 +1,12 @@
 import 'package:anonforum/Data/DataSources/comment_data_source.dart';
 import 'package:anonforum/Data/DataSources/post_data_source.dart';
 import 'package:anonforum/Data/Repositories/post_repository.dart';
-import 'package:anonforum/Domain/Entities/comment.dart';
-import 'package:anonforum/Domain/Entities/create_post.dart';
-import 'package:anonforum/Domain/Entities/post.dart';
-import 'package:anonforum/Domain/Entities/post_category.dart';
-import 'package:anonforum/Domain/Entities/user_like_and_dislike.dart';
+import 'package:anonforum/Domain/Entities/Comment/comment.dart';
+import 'package:anonforum/Domain/Entities/Post/create_post.dart';
+import 'package:anonforum/Domain/Entities/Post/edit_post.dart';
+import 'package:anonforum/Domain/Entities/Post/post.dart';
+import 'package:anonforum/Domain/Entities/Post/post_category.dart';
+import 'package:anonforum/Domain/Entities/UserAuth/user_like_and_dislike.dart';
 import 'package:logger/logger.dart';
 
 class PostRepositoryImpl implements PostRepository {
@@ -39,6 +40,18 @@ class PostRepositoryImpl implements PostRepository {
       throw Exception(e);
     }
   }
+
+  @override
+  Future<Post> getPostById(int id) async {
+    try {
+      var post = await _dataSource.getPostById(id);
+      return post;
+    } catch (e) {
+      logger.d("Error: $e");
+      throw Exception(e);
+    }
+  }
+
   @override
   Future<List<PostCategory>?> fetchPostCategory() async {
     try {
@@ -53,6 +66,24 @@ class PostRepositoryImpl implements PostRepository {
     logger.d(createPost);
     try{
       await _dataSource.addPost(createPost);
+    } catch (e) {
+      logger.d("Error Repository: $e");
+      throw Exception(e);
+    }
+  }
+  @override
+  Future<void> editPost(int postId, EditPost editPost) async {
+    try{
+      await _dataSource.editPost(postId, editPost);
+    } catch (e) {
+      logger.d("Error Repository: $e");
+      throw Exception(e);
+    }
+  }
+  @override
+  Future<void> deletePost(int id, String token) async {
+    try{
+      await _dataSource.deletePost(id, token);
     } catch (e) {
       logger.d("Error Repository: $e");
       throw Exception(e);
