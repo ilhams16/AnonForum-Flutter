@@ -1,6 +1,6 @@
 import 'package:anonforum/Data/DataSources/comment_data_source.dart';
 import 'package:anonforum/Data/DataSources/post_data_source.dart';
-import 'package:anonforum/Data/Repositories/post_repository.dart';
+import 'package:anonforum/Data/Repositories/Post/post_repository.dart';
 import 'package:anonforum/Domain/Entities/Comment/comment.dart';
 import 'package:anonforum/Domain/Entities/Post/create_post.dart';
 import 'package:anonforum/Domain/Entities/Post/edit_post.dart';

@@ -1,5 +1,5 @@
 import 'package:anonforum/Data/DataSources/comment_data_source.dart';
-import 'package:anonforum/Data/Repositories/comment_repository.dart';
+import 'package:anonforum/Data/Repositories/Comment/comment_repository.dart';
 import 'package:anonforum/Domain/Entities/Comment/create_comment.dart';
 import 'package:logger/logger.dart';
 

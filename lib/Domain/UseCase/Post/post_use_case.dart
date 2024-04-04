@@ -1,7 +1,7 @@
-import 'package:anonforum/Domain/Entities/create_post.dart';
-import 'package:anonforum/Domain/Entities/edit_post.dart';
-import 'package:anonforum/Domain/Entities/post.dart';
-import 'package:anonforum/Domain/Entities/post_category.dart';
+import 'package:anonforum/Domain/Entities/Post/create_post.dart';
+import 'package:anonforum/Domain/Entities/Post/edit_post.dart';
+import 'package:anonforum/Domain/Entities/Post/post.dart';
+import 'package:anonforum/Domain/Entities/Post/post_category.dart';
 
 abstract class PostUseCase {
   Future<List<Post>> fetchPostsAndComments({String? search});

@@ -1,5 +1,5 @@
-import 'package:anonforum/Domain/Entities/user_auth.dart';
-import 'package:anonforum/Domain/Entities/user_like_and_dislike.dart';
+import 'package:anonforum/Domain/Entities/UserAuth/user_auth.dart';
+import 'package:anonforum/Domain/Entities/UserAuth/user_like_and_dislike.dart';
 import 'package:equatable/equatable.dart';
 
 class Comment extends Equatable {

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:anonforum/Domain/Entities/user_login.dart';
+import 'package:anonforum/Domain/Entities/UserAuth/user_login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SessionManager {

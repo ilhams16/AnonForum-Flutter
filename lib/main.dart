@@ -1,8 +1,9 @@
-import 'package:anonforum/Application/Provider/add_post.dart';
+import 'package:anonforum/Application/Provider/add_post_provider.dart';
 import 'package:anonforum/Application/Provider/bottom_navbar_provider.dart';
-import 'package:anonforum/Application/Provider/ddl_category.dart';
+import 'package:anonforum/Application/Provider/ddl_category_provider.dart';
 import 'package:anonforum/Application/Provider/image_provider.dart';
 import 'package:anonforum/Application/Provider/comment_provider.dart';
+import 'package:anonforum/Application/Provider/more_event_provider.dart';
 import 'package:anonforum/Application/Provider/search_provider.dart';
 import 'package:anonforum/Application/Provider/theme_provider.dart';
 import 'package:anonforum/Application/Provider/user_provider.dart';
@@ -23,6 +24,8 @@ void main() async {
         ChangeNotifierProvider(create: (_) => DropdownCategoryProvider()),
         ChangeNotifierProvider(create: (_) => UserDataProvider()),
         ChangeNotifierProvider(create: (_) => BottomNavBarProvider()),
+        ChangeNotifierProvider(create: (_) => MoreEventProvider()),
+
         // Add more providers as needed
       ],
       child: const MyApp(),
@@ -40,6 +43,7 @@ class MyApp extends StatelessWidget {
         //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         //   useMaterial3: true,
         // ),
-        home: HomePage());
+        home: HomePage()
+        );
   }
 }

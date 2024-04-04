@@ -1,9 +1,9 @@
-import 'package:anonforum/Data/Repositories/post_repository.dart';
-import 'package:anonforum/Domain/Entities/create_post.dart';
-import 'package:anonforum/Domain/Entities/edit_post.dart';
-import 'package:anonforum/Domain/Entities/post.dart';
-import 'package:anonforum/Domain/Entities/post_category.dart';
-import 'package:anonforum/Domain/UseCase/post_use_case.dart';
+import 'package:anonforum/Data/Repositories/Post/post_repository.dart';
+import 'package:anonforum/Domain/Entities/Post/create_post.dart';
+import 'package:anonforum/Domain/Entities/Post/edit_post.dart';
+import 'package:anonforum/Domain/Entities/Post/post.dart';
+import 'package:anonforum/Domain/Entities/Post/post_category.dart';
+import 'package:anonforum/Domain/UseCase/Post/post_use_case.dart';
 
 class PostUseCaseImpl implements PostUseCase {
   final PostRepository _repository;

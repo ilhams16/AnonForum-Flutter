@@ -1,7 +1,7 @@
-import 'package:anonforum/Domain/Entities/comment.dart';
-import 'package:anonforum/Domain/Entities/post_category.dart';
-import 'package:anonforum/Domain/Entities/user_auth.dart';
-import 'package:anonforum/Domain/Entities/user_like_and_dislike.dart';
+import 'package:anonforum/Domain/Entities/Comment/comment.dart';
+import 'package:anonforum/Domain/Entities/Post/post_category.dart';
+import 'package:anonforum/Domain/Entities/UserAuth/user_auth.dart';
+import 'package:anonforum/Domain/Entities/UserAuth/user_like_and_dislike.dart';
 import 'package:equatable/equatable.dart';
 
 class Post extends Equatable {

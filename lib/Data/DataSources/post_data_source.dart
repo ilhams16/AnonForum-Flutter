@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:anonforum/Domain/Entities/create_post.dart';
-import 'package:anonforum/Domain/Entities/post.dart';
-import 'package:anonforum/Domain/Entities/post_category.dart';
-import 'package:anonforum/Domain/Entities/user_like_and_dislike.dart';
+import 'package:anonforum/Domain/Entities/Post/create_post.dart';
+import 'package:anonforum/Domain/Entities/Post/edit_post.dart';
+import 'package:anonforum/Domain/Entities/Post/post.dart';
+import 'package:anonforum/Domain/Entities/Post/post_category.dart';
+import 'package:anonforum/Domain/Entities/UserAuth/user_like_and_dislike.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 
@@ -31,6 +32,22 @@ class PostsDataSource {
       } else {
         return postsList;
       }
+    } catch (e) {
+      logger.d("Error: $e");
+      throw Exception(e);
+    }
+  }
+
+  Future<Post> getPostById(int id) async {
+    var logger = Logger();
+    try {
+      late String url =
+          'https://app.actualsolusi.com/bsi/anonforum/api/Posts/$id';
+      var response = await http.get(Uri.parse(url));
+      var jsonData = jsonDecode(response.body);
+      Post data = Post.fromJson(jsonData);
+      logger.d("Get By ID");
+      return data;
     } catch (e) {
       logger.d("Error: $e");
       throw Exception(e);
@@ -123,12 +140,10 @@ class PostsDataSource {
 
         // Check the response
         if (response.statusCode == 201) {
-          print('Added Post successfully');
         } else {
-          print('Failed : ${response.statusCode}');
         }
       } catch (e) {
-        print('Error uploading file: $e');
+        logger.d(e);
       }
     } catch (e) {
       logger.d("Error Data Source: $e");
@@ -136,37 +151,76 @@ class PostsDataSource {
     }
   }
 
-  Future<void> like(int userId, int postId, String token) async {
+  Future<void> editPost(int postId, EditPost editPost) async {
     var logger = Logger();
-    // Map<String, dynamic> postData = {
-    //   'userID': userId.toString(),
-    //   'postID': postId.toString(),
-    // };
-    // logger.d(token.trim());
     try {
-      late String url = 'https://app.actualsolusi.com/bsi/anonforum/api/Posts/Like?userID=$userId&postID=$postId';
-      var response =
-          await http.post(Uri.parse(url),
-            headers: <String, String>{
-              'Content-Type': 'application/x-www-form-urlencoded',
-              'Authorization': 'Bearer ${token.trim()}'
-            },
-              // body: jsonEncode(postData),
-          );
+      late String url =
+          'https://app.actualsolusi.com/bsi/anonforum/api/Posts/$postId';
+      var request = http.MultipartRequest("PUT", Uri.parse(url));
+      request.headers.addAll({
+        HttpHeaders.authorizationHeader: 'Bearer ${editPost.token.trim()}',
+      });
+      if (editPost.file != null) {
+        var len = await editPost.file!.length();
+        var image = http.MultipartFile(
+          'ImageFilePost',
+          editPost.file!.openRead(),
+          len,
+          filename: editPost.file!.name,
+        );
+        request.files.add(image);
+      }
+      request.fields['Title'] = editPost.title;
+      request.fields['PostText'] = editPost.postText;
+      request.fields['PostID'] = postId.toString();
+      request.fields['PostCategoryID'] = editPost.postCategoryId.toString();
+      var response = await request.send();
       if (response.statusCode == 201) {
         // Request was successful
-        print('POST request successful');
-        print('Response body: ${response.body}');
       } else {
         // Request failed with an error status code
-        print('POST request failed with status: ${response.statusCode}');
-        print('Response body: ${response.body}');
       }
     } catch (e) {
       logger.d("Error: $e");
       throw Exception(e);
     }
   }
+
+  Future<void> deletePost(int id, String token) async {
+    var logger = Logger();
+    try {
+      late String url =
+          'https://app.actualsolusi.com/bsi/anonforum/api/Posts/$id';
+      var response = await http.delete(Uri.parse(url),
+        headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Bearer ${token.trim()}'
+      },);
+    } catch (e) {
+      logger.d("Error: $e");
+      throw Exception(e);
+    }
+  }
+
+  Future<void> like(int userId, int postId, String token) async {
+    var logger = Logger();
+    try {
+      late String url =
+          'https://app.actualsolusi.com/bsi/anonforum/api/Posts/Like?userID=$userId&postID=$postId';
+      var response = await http.post(
+        Uri.parse(url),
+        headers: <String, String>{
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Bearer ${token.trim()}'
+        },
+        // body: jsonEncode(postData),
+      );
+    } catch (e) {
+      logger.d("Error: $e");
+      throw Exception(e);
+    }
+  }
+
   Future<void> unlike(int userId, int postId, String token) async {
     var logger = Logger();
     // Map<String, dynamic> postData = {
@@ -174,29 +228,22 @@ class PostsDataSource {
     //   'postID': postId,
     // };
     try {
-      late String url = 'https://app.actualsolusi.com/bsi/anonforum/api/Posts/Unlike?userID=$userId&postID=$postId';
-      var response =
-      await http.post(Uri.parse(url),
+      late String url =
+          'https://app.actualsolusi.com/bsi/anonforum/api/Posts/Unlike?userID=$userId&postID=$postId';
+      var response = await http.post(
+        Uri.parse(url),
         headers: <String, String>{
           'Content-Type': 'application/x-www-form-urlencoded',
           'Authorization': 'Bearer ${token.trim()}'
         },
         // body: postData,
       );
-      if (response.statusCode == 201) {
-        // Request was successful
-        print('POST request successful');
-        print('Response body: ${response.body}');
-      } else {
-        // Request failed with an error status code
-        print('POST request failed with status: ${response.statusCode}');
-        print('Response body: ${response.body}');
-      }
     } catch (e) {
       logger.d("Error: $e");
       throw Exception(e);
     }
   }
+
   Future<void> dislike(int userId, int postId, String token) async {
     var logger = Logger();
     // Map<String, dynamic> postData = {
@@ -204,29 +251,22 @@ class PostsDataSource {
     //   'postID': postId,
     // };
     try {
-      late String url = 'https://app.actualsolusi.com/bsi/anonforum/api/Posts/Dislike?userID=$userId&postID=$postId';
-      var response =
-      await http.post(Uri.parse(url),
+      late String url =
+          'https://app.actualsolusi.com/bsi/anonforum/api/Posts/Dislike?userID=$userId&postID=$postId';
+      var response = await http.post(
+        Uri.parse(url),
         headers: <String, String>{
           'Content-Type': 'application/x-www-form-urlencoded',
           'Authorization': 'Bearer ${token.trim()}'
         },
         // body: postData,
       );
-      if (response.statusCode == 201) {
-        // Request was successful
-        print('POST request successful');
-        print('Response body: ${response.body}');
-      } else {
-        // Request failed with an error status code
-        print('POST request failed with status: ${response.statusCode}');
-        print('Response body: ${response.body}');
-      }
     } catch (e) {
       logger.d("Error: $e");
       throw Exception(e);
     }
   }
+
   Future<void> undislike(int userId, int postId, String token) async {
     var logger = Logger();
     // Map<String, dynamic> postData = {
@@ -234,24 +274,16 @@ class PostsDataSource {
     //   'postID': postId,
     // };
     try {
-      late String url = 'https://app.actualsolusi.com/bsi/anonforum/api/Posts/Undislike?userID=$userId&postID=$postId';
-      var response =
-      await http.post(Uri.parse(url),
+      late String url =
+          'https://app.actualsolusi.com/bsi/anonforum/api/Posts/Undislike?userID=$userId&postID=$postId';
+      var response = await http.post(
+        Uri.parse(url),
         headers: <String, String>{
           'Content-Type': 'application/x-www-form-urlencoded',
           'Authorization': 'Bearer ${token.trim()}'
         },
         // body: postData,
       );
-      if (response.statusCode == 201) {
-        // Request was successful
-        print('POST request successful');
-        print('Response body: ${response.body}');
-      } else {
-        // Request failed with an error status code
-        print('POST request failed with status: ${response.statusCode}');
-        print('Response body: ${response.body}');
-      }
     } catch (e) {
       logger.d("Error: $e");
       throw Exception(e);

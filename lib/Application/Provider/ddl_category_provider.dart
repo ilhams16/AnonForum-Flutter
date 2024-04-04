@@ -1,4 +1,4 @@
-import 'package:anonforum/Domain/Entities/post_category.dart';
+import 'package:anonforum/Domain/Entities/Post/post_category.dart';
 import 'package:flutter/material.dart';
 
 class DropdownCategoryProvider extends ChangeNotifier {

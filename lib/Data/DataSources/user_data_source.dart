@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:anonforum/Domain/Entities/create_user.dart';
-import 'package:anonforum/Domain/Entities/login.dart';
-import 'package:anonforum/Domain/Entities/user_auth.dart';
-import 'package:anonforum/Domain/Entities/user_login.dart';
+import 'package:anonforum/Domain/Entities/UserAuth/create_user.dart';
+import 'package:anonforum/Domain/Entities/UserAuth/login.dart';
+import 'package:anonforum/Domain/Entities/UserAuth/user_auth.dart';
+import 'package:anonforum/Domain/Entities/UserAuth/user_login.dart';
 import 'package:logger/logger.dart';
 import 'package:http/http.dart' as http;
 
@@ -83,12 +83,10 @@ class UsersDataSource {
 
         // Check the response
         if (response.statusCode == 201) {
-          print('Create user successfully');
         } else {
-          print('Failed : ${response.statusCode}');
         }
       } catch (e) {
-        print('Error: $e');
+        logger.d(e);
       }
     } catch (e) {
       logger.d("Error: $e");

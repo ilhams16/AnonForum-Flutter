@@ -1,10 +1,10 @@
 import 'package:anonforum/Application/Pages/home_page.dart';
 import 'package:anonforum/Application/Pages/register_page.dart';
 import 'package:anonforum/Application/Provider/theme_provider.dart';
-import 'package:anonforum/Data/Repositories/user_repository_impl.dart';
+import 'package:anonforum/Data/Repositories/UserAuth/user_repository_impl.dart';
 import 'package:anonforum/Domain/Session/session_manager.dart';
-import 'package:anonforum/Domain/UseCase/user_use_case.dart';
-import 'package:anonforum/Domain/UseCase/user_use_case_impl.dart';
+import 'package:anonforum/Domain/UseCase/UserAuth/user_use_case.dart';
+import 'package:anonforum/Domain/UseCase/UserAuth/user_use_case_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

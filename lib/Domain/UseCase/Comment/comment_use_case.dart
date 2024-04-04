@@ -1,4 +1,4 @@
-import 'package:anonforum/Domain/Entities/create_comment.dart';
+import 'package:anonforum/Domain/Entities/Comment/create_comment.dart';
 
 abstract class CommentUseCase {
   Future<void> addComment(CreateComment createComment);
