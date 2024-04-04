@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:anonforum/Domain/Entities/comment.dart';
-import 'package:anonforum/Domain/Entities/create_comment.dart';
-import 'package:anonforum/Domain/Entities/user_like_and_dislike.dart';
+import 'package:anonforum/Domain/Entities/Comment/comment.dart';
+import 'package:anonforum/Domain/Entities/Comment/create_comment.dart';
+import 'package:anonforum/Domain/Entities/UserAuth/user_like_and_dislike.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 
@@ -66,7 +66,6 @@ class CommentsDataSource {
       'UserID': createComment.userId.toString(),
       'CommentText': createComment.commentText
     };
-    logger.d(postData);
     try {
       var response = await http.post(
         Uri.parse(url),
@@ -78,13 +77,47 @@ class CommentsDataSource {
       );
       if (response.statusCode == 200) {
         // Request was successful
-        print('Comment successful');
-        print('Response body: ${response.body}');
+        logger.d("Comment Success");
       } else {
         // Request failed with an error status code
-        print('Comment failed with status: ${response.statusCode}');
-        print('Response body: ${response.body}');
+        logger.d(response.statusCode);
       }
+    } catch (e) {
+      logger.d("Error: $e");
+      throw Exception(e);
+    }
+  }
+  Future<void> editComment(int id, String token, String newComment) async {
+    var logger = Logger();
+    Map<String, dynamic> data = {
+      'CommentID': id.toString(),
+      'CommentText': newComment,
+    };
+    try {
+      late String url =
+          'https://app.actualsolusi.com/bsi/anonforum/api/Comments/$id';
+      var response = await http.put(Uri.parse(url),
+        headers: <String, String>{
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Bearer ${token.trim()}'
+        },
+        body: jsonEncode(data)
+      );
+    } catch (e) {
+      logger.d("Error: $e");
+      throw Exception(e);
+    }
+  }
+  Future<void> deleteComment(int id, String token) async {
+    var logger = Logger();
+    try {
+      late String url =
+          'https://app.actualsolusi.com/bsi/anonforum/api/Comments/$id';
+      var response = await http.delete(Uri.parse(url),
+        headers: <String, String>{
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Bearer ${token.trim()}'
+        },);
     } catch (e) {
       logger.d("Error: $e");
       throw Exception(e);
@@ -107,15 +140,6 @@ class CommentsDataSource {
         },
         // body: jsonEncode(postData),
       );
-      if (response.statusCode == 200) {
-        // Request was successful
-        print('Comment request successful');
-        print('Response body: ${response.body}');
-      } else {
-        // Request failed with an error status code
-        print('Comment request failed with status: ${response.statusCode}');
-        print('Response body: ${response.body}');
-      }
     } catch (e) {
       logger.d("Error: $e");
       throw Exception(e);
@@ -137,15 +161,6 @@ class CommentsDataSource {
         },
         // body: postData,
       );
-      if (response.statusCode == 200) {
-        // Request was successful
-        print('Comment request successful');
-        print('Response body: ${response.body}');
-      } else {
-        // Request failed with an error status code
-        print('Comment request failed with status: ${response.statusCode}');
-        print('Response body: ${response.body}');
-      }
     } catch (e) {
       logger.d("Error: $e");
       throw Exception(e);
@@ -167,15 +182,6 @@ class CommentsDataSource {
         },
         // body: postData,
       );
-      if (response.statusCode == 200) {
-        // Request was successful
-        print('Comment request successful');
-        print('Response body: ${response.body}');
-      } else {
-        // Request failed with an error status code
-        print('Comment request failed with status: ${response.statusCode}');
-        print('Response body: ${response.body}');
-      }
     } catch (e) {
       logger.d("Error: $e");
       throw Exception(e);
@@ -197,15 +203,6 @@ class CommentsDataSource {
         },
         // body: postData,
       );
-      if (response.statusCode == 200) {
-        // Request was successful
-        print('Comment request successful');
-        print('Response body: ${response.body}');
-      } else {
-        // Request failed with an error status code
-        print('Comment request failed with status: ${response.statusCode}');
-        print('Response body: ${response.body}');
-      }
     } catch (e) {
       logger.d("Error: $e");
       throw Exception(e);

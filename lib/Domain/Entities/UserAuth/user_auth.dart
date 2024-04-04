@@ -1,4 +1,4 @@
-import 'package:anonforum/Domain/Entities/role.dart';
+import 'package:anonforum/Domain/Entities/UserAuth/role.dart';
 import 'package:equatable/equatable.dart';
 
 class UserAuth extends Equatable {

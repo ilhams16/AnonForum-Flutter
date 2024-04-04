@@ -1,4 +1,4 @@
-import 'package:anonforum/Domain/Entities/user_auth.dart';
+import 'package:anonforum/Domain/Entities/UserAuth/user_auth.dart';
 import 'package:equatable/equatable.dart';
 
 class UserLikeAndDislike extends Equatable {

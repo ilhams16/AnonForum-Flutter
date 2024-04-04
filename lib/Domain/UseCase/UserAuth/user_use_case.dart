@@ -1,6 +1,6 @@
-import 'package:anonforum/Domain/Entities/create_user.dart';
-import 'package:anonforum/Domain/Entities/user_auth.dart';
-import 'package:anonforum/Domain/Entities/user_login.dart';
+import 'package:anonforum/Domain/Entities/UserAuth/create_user.dart';
+import 'package:anonforum/Domain/Entities/UserAuth/user_auth.dart';
+import 'package:anonforum/Domain/Entities/UserAuth/user_login.dart';
 
 abstract class UserUseCase {
   Future<UserLogin> login(String username, String password);

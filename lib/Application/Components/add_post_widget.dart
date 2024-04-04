@@ -1,21 +1,21 @@
-import 'package:anonforum/Application/Provider/add_post.dart';
-import 'package:anonforum/Application/Provider/ddl_category.dart';
+import 'package:anonforum/Application/Provider/add_post_provider.dart';
+import 'package:anonforum/Application/Provider/ddl_category_provider.dart';
 import 'package:anonforum/Application/Provider/image_provider.dart';
 import 'package:anonforum/Application/Provider/user_provider.dart';
 import 'package:anonforum/Application/Pages/home_page.dart';
-import 'package:anonforum/Data/Repositories/post_repository_impl.dart';
-import 'package:anonforum/Domain/Entities/create_post.dart';
-import 'package:anonforum/Domain/Entities/post_category.dart';
-import 'package:anonforum/Domain/UseCase/post_use_case.dart';
-import 'package:anonforum/Domain/UseCase/post_use_case_impl.dart';
+import 'package:anonforum/Data/Repositories/Post/post_repository_impl.dart';
+import 'package:anonforum/Domain/Entities/Post/create_post.dart';
+import 'package:anonforum/Domain/Entities/Post/post_category.dart';
+import 'package:anonforum/Domain/UseCase/Post/post_use_case.dart';
+import 'package:anonforum/Domain/UseCase/Post/post_use_case_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 
 class AddPostButton extends StatelessWidget {
-  late final TextEditingController _titleController = TextEditingController();
-  late final TextEditingController _postTextController =
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _postTextController =
       TextEditingController();
   late int categoryId = 0;
   late int? userId = 0;

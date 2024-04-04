@@ -1,6 +1,6 @@
-import 'package:anonforum/Data/Repositories/comment_repository.dart';
-import 'package:anonforum/Domain/Entities/create_comment.dart';
-import 'package:anonforum/Domain/UseCase/comment_use_case.dart';
+import 'package:anonforum/Data/Repositories/Comment/comment_repository.dart';
+import 'package:anonforum/Domain/Entities/Comment/create_comment.dart';
+import 'package:anonforum/Domain/UseCase/Comment/comment_use_case.dart';
 
 class CommentUseCaseImpl implements CommentUseCase {
   final CommentRepository _repository;

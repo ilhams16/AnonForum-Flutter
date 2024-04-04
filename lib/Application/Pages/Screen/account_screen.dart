@@ -1,6 +1,6 @@
-import 'package:anonforum/Data/Repositories/user_repository_impl.dart';
-import 'package:anonforum/Domain/UseCase/user_use_case.dart';
-import 'package:anonforum/Domain/UseCase/user_use_case_impl.dart';
+import 'package:anonforum/Data/Repositories/UserAuth/user_repository_impl.dart';
+import 'package:anonforum/Domain/UseCase/UserAuth/user_use_case.dart';
+import 'package:anonforum/Domain/UseCase/UserAuth/user_use_case_impl.dart';
 import 'package:flutter/material.dart';
 
 class AccountScreen extends StatelessWidget {
