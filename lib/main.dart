@@ -1,4 +1,4 @@
-import 'package:anonforum/Application/Pages/Screen/splah_screen.dart';
+import 'package:anonforum/Application/Pages/Screen/splash_screen.dart';
 import 'package:anonforum/Application/Provider/add_post_provider.dart';
 import 'package:anonforum/Application/Provider/bottom_navbar_provider.dart';
 import 'package:anonforum/Application/Provider/ddl_category_provider.dart';
